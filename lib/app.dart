@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-// ignore: depend_on_referenced_packages
 import 'package:_discoveryapis_commons/_discoveryapis_commons.dart';
 import 'package:args/command_runner.dart';
 import 'package:fs_service/commands/add_col_command.dart';
