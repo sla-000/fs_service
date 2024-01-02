@@ -10,10 +10,23 @@ The tool can:
   data types that exist in Firestore.
 
 
-# Access to Firestore project
+# Add tool to your project
 
-⚠️To access the data, a Firestore service account is used. What is needed for work:
-- Create a service account.
+Add this line manually to your dev_dependencies:
+```yaml
+dev_dependencies:
+  fs_service: ^1.0.0
+```
+or alternatively run this command in the root folder of your app, where the pubspec.yaml file is located:
+```bash
+dart pub add dev:fs_service
+```
+
+
+# Getting access to Firestore project
+
+⚠️ To access the data, a Firestore service account is used. What is needed for work:
+- Create a service account for your Firestore project.
 - Download JSON with credentials to access the account.
 - Set the GOOGLE_APPLICATION_CREDENTIALS environment variable and specify the path to the credentials file in it.
 
@@ -27,14 +40,14 @@ You can read more about this here: https://cloud.google.com/docs/authentication/
 
 # General structure of documents and collections in the Firebase
 
-ℹ️It’s important to understand that the structure has the following form:
+ℹ️ It’s important to understand that the structure has the following form:
 
 - Documents are located at the root of the project.
 - A document consists of fields with different types of data.
 - Each document can have a nested collection, and not just one.
 - Several documents can be nested in each collection. 
 
-⚠️From this, the following important conclusions are drawn:
+⚠️ From this, the following important conclusions are drawn:
 
 - If `colX` is the name of a collection and `docX` is the name of a document, 
     then the relative path from the root of the project will look something like this: `col1/doc1/col2/doc2`, 
@@ -49,7 +62,7 @@ The absolute path of the root of the project looks like this:
 projects/{projectId}/databases/{databaseId}/documents
 ```
 
-You should pass the projectId and databaseId values as the arguments to the application, see exampless below.
+You have to pass the projectId value and optionally the databaseId value as the arguments to the application, see examples below.
 
 # get-doc Command
 
@@ -123,10 +136,10 @@ Since the output file is not specified in the options, the result will be printe
 }
 ```
 
-More sophisticated examples are in the [doc-2.json](test/jsons/doc-2.json)] and [col-2.json](test/jsons/col-2.json) files.
+More sophisticated examples are in the [doc-2.json](test/jsons/doc-2.json) and [col-2.json](test/jsons/col-2.json) files.
 
 Time will always be converted to UTC to avoid confusion. 
-The default geolocation is stored in the form of 'location://{LATITUDE}/{LONGITUDE}'
+The default geolocation is stored in the form of `location://{LATITUDE}/{LONGITUDE}`
 
 By default the fields starting with `$` are the meta-data fields. These fields are used to restore 
 structure of the Firestore database.
@@ -153,10 +166,10 @@ dart run fs_service get-doc test/lUAEoKptpXKT1CshnZKX --project=myProject | \
 In this case, the document `test/lUAEoKptpXKT1CshnZKX` will be copied to the same collection `test` 
 but with the name `doc4` (option `-c`). All nested collections and documents will also be copied.
 
-⚠️It's important to understand that the values of the '$createTime' and '$updateTime' fields will not be 
+⚠️ It's important to understand that the values of the '$createTime' and '$updateTime' fields will not be 
 written to the Firestore document, because Firestore ignores these values and overwrites them automatically.
 
-ℹ️You can delete the meta-data field $name of the document or set it to null. In this case Firestore will 
+ℹ️ You can delete the meta-data field $name of the document or set it to null. In this case Firestore will 
 assign random unique id to this document.
 
 
@@ -177,7 +190,7 @@ They work similarly to the `get-doc`, `add-doc`, and `del-doc` commands, but are
 
 # Detailed information
 
-You can read the deatailed information about the tool and each of the command with the following commands
+You can read the detailed information about the tool and each of the command with the following commands
 
 ```bash
 dart run fs_service --help
