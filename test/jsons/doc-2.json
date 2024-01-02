@@ -1,0 +1,200 @@
+{
+  "someString": "someStringValue",
+  "$name": "cvbn",
+  "$createTime": "2023-12-23T14:01:37.736254Z",
+  "$updateTime": "2023-12-23T14:01:37.736254Z",
+  "$collections": [
+    {
+      "$name": "test4",
+      "$documents": [
+        {
+          "ref": "reference://projects/ella500/databases/(default)/documents/en/YLTunxHK6rgPTWHxjJYe",
+          "numberF": 1234.5432,
+          "array": [
+            "array1",
+            "array2"
+          ],
+          "word": "four",
+          "geopoint": "location://34.3456/-23.432",
+          "transcript": "fɔːr",
+          "id": "95il61U47MVonL027u3V",
+          "translit": "",
+          "number": 12345,
+          "timestamp": "datetime://2023-10-21T11:26:40.152Z",
+          "boolean": true,
+          "map": {
+            "key1": {
+              "key2": "value2"
+            }
+          },
+          "null1": null,
+          "$name": "95il61U47MVonL027u3V",
+          "$createTime": "2023-12-23T14:01:38.166259Z",
+          "$updateTime": "2023-12-23T14:01:38.166259Z",
+          "$collections": [
+            {
+              "$name": "test5",
+              "$documents": [
+                {
+                  "test5": "test5aaa",
+                  "$name": "DWtYaWaur4LeTHlnEAIG",
+                  "$createTime": "2023-12-23T14:01:38.306055Z",
+                  "$updateTime": "2023-12-23T14:01:38.306055Z",
+                  "$collections": [
+                    {
+                      "$name": "test6",
+                      "$documents": [
+                        {
+                          "test6": "test6zzz",
+                          "$name": "gmemnkbfMZyo5FmlmakM",
+                          "$createTime": "2023-12-23T14:01:38.449467Z",
+                          "$updateTime": "2023-12-23T14:01:38.449467Z",
+                          "$collections": [
+                            {
+                              "$name": "test7",
+                              "$documents": [
+                                {
+                                  "test7": "test7ccc",
+                                  "$name": "9DUEUaCeztcCC2lFyzQh",
+                                  "$createTime": "2023-12-23T14:01:38.590105Z",
+                                  "$updateTime": "2023-12-23T14:01:38.590105Z"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "$name": "test6a",
+                      "$documents": [
+                        {
+                          "test6a3": "test6aaaa333",
+                          "$name": "HZgbH9j0NRtlX8DglmJZ",
+                          "$createTime": "2023-12-23T14:01:39.013846Z",
+                          "$updateTime": "2023-12-23T14:01:39.013846Z"
+                        },
+                        {
+                          "test6a2": "test6aaaa2",
+                          "$name": "bvncvcvcxcv",
+                          "$createTime": "2023-12-23T14:01:38.881979Z",
+                          "$updateTime": "2023-12-23T14:01:38.881979Z"
+                        },
+                        {
+                          "test6a": "test6aaaa",
+                          "$name": "dfgsrafadfdfsga",
+                          "$createTime": "2023-12-23T14:01:38.737390Z",
+                          "$updateTime": "2023-12-23T14:01:38.737390Z"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "someString": "someStringValue",
+          "$name": "cvbn",
+          "$createTime": "2023-12-23T14:03:23.841551Z",
+          "$updateTime": "2023-12-23T14:03:23.841551Z",
+          "$collections": [
+            {
+              "$name": "test4",
+              "$documents": [
+                {
+                  "numberF": 1234.5432,
+                  "word": "four",
+                  "id": "95il61U47MVonL027u3V",
+                  "array": [
+                    "array1",
+                    "array2"
+                  ],
+                  "timestamp": "datetime://2023-10-21T11:26:40.152Z",
+                  "null1": null,
+                  "translit": "",
+                  "number": 12345,
+                  "boolean": true,
+                  "geopoint": "location://34.3456/-23.432",
+                  "ref": "reference://projects/ella500/databases/(default)/documents/en/YLTunxHK6rgPTWHxjJYe",
+                  "map": {
+                    "key1": {
+                      "key2": "value2"
+                    }
+                  },
+                  "transcript": "fɔːr",
+                  "$name": "95il61U47MVonL027u3V",
+                  "$createTime": "2023-12-23T14:03:24.239350Z",
+                  "$updateTime": "2023-12-23T14:03:24.239350Z",
+                  "$collections": [
+                    {
+                      "$name": "test5",
+                      "$documents": [
+                        {
+                          "test5": "test5aaa",
+                          "$name": "DWtYaWaur4LeTHlnEAIG",
+                          "$createTime": "2023-12-23T14:03:24.390122Z",
+                          "$updateTime": "2023-12-23T14:03:24.390122Z",
+                          "$collections": [
+                            {
+                              "$name": "test6",
+                              "$documents": [
+                                {
+                                  "test6": "test6zzz",
+                                  "$name": "gmemnkbfMZyo5FmlmakM",
+                                  "$createTime": "2023-12-23T14:03:24.539782Z",
+                                  "$updateTime": "2023-12-23T14:03:24.539782Z",
+                                  "$collections": [
+                                    {
+                                      "$name": "test7",
+                                      "$documents": [
+                                        {
+                                          "test7": "test7ccc",
+                                          "$name": "9DUEUaCeztcCC2lFyzQh",
+                                          "$createTime": "2023-12-23T14:03:24.688438Z",
+                                          "$updateTime": "2023-12-23T14:03:24.688438Z"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "$name": "test6a",
+                              "$documents": [
+                                {
+                                  "test6a2": "test6aaaa2",
+                                  "$name": "bvncvcvcxcv",
+                                  "$createTime": "2023-12-23T14:03:24.971808Z",
+                                  "$updateTime": "2023-12-23T14:03:24.971808Z"
+                                },
+                                {
+                                  "test6a": "test6aaaa",
+                                  "$name": "dfgsrafadfdfsga",
+                                  "$createTime": "2023-12-23T14:03:24.843178Z",
+                                  "$updateTime": "2023-12-23T14:03:24.843178Z"
+                                },
+                                {
+                                  "test6a3": "test6aaaa333",
+                                  "$name": "qXiWTu99BScZo5Bx5Na5",
+                                  "$createTime": "2023-12-23T14:03:25.109453Z",
+                                  "$updateTime": "2023-12-23T14:03:25.109453Z"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

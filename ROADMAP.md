@@ -1,0 +1,3 @@
+- (100) CI/CD
+- (0) Add list documents and list collections command
+- (-100) Shell with UNIX-like commands: ls, cat, etc.

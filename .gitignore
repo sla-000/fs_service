@@ -1,0 +1,12 @@
+# https://dart.dev/guides/libraries/private-files
+# Created by `dart pub`
+.dart_tool/
+
+../ella500/secret/**
+build/
+
+coverage/
+
+test/doc/.*
+
+.idea
