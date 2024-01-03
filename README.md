@@ -1,12 +1,8 @@
-<a href="https://github.com/sla-000/fs_service/actions">
-<img src="https://github.com/sla-000/fs_service/actions/workflows/on-merge.yaml/badge.svg" alt="Last main analysis and tests status">
-</a>
-
-[![Coverage Status](https://coveralls.io/repos/github/sla-000/fs_service/badge.svg)](https://coveralls.io/github/sla-000/fs_service)
-
-<a href="https://opensource.org/licenses/MIT">
-<img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/>
-</a>
+<p float="left">
+  <a href="https://github.com/sla-000/fs_service/actions"><img src="https://github.com/sla-000/fs_service/actions/workflows/on-merge.yaml/badge.svg" alt="Last main analysis and tests status"></a>
+  <a href="https://coveralls.io/github/sla-000/fs_service"><img src="https://coveralls.io/repos/github/sla-000/fs_service/badge.svg" alt="Coverage Status"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/></a>
+</p>
 
 # The purpose of the fs_service utility
 

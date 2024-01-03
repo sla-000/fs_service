@@ -1,4 +1,4 @@
-name: Check main is OK and upgrade version and changelog
+name: Check last merge to main
 on:
   push:
     branches:
