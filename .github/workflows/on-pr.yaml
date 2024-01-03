@@ -1,8 +1,8 @@
-name: Check master and upgrade version
+name: Check PR is OK
 on:
-  push:
+  pull_request:
     branches:
-      - master
+      - main
 jobs:
   test:
     name: Check the source code
@@ -28,24 +28,3 @@ jobs:
       - name: Check source
         run: |
           dart run melos run check
-      - name: Set git user
-        run: |
-          git config --global user.email "sla.000@ya.ru" && \
-          git config --global user.name "Github Action"
-      - name: Version upgrade
-        run: |
-          dart run melos version --yes
-      - name: Commit & Push changes
-        uses: actions-js/push@v1.4
-        with:
-          branch: master
-          empty: true
-          tags: true
-          force: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload coverage
-        uses: coverallsapp/github-action@v2.1.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage/lcov.info
-
