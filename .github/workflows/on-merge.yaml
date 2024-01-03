@@ -1,4 +1,4 @@
-name: Check master is OK and upgrade version and changelog
+name: Check main is OK and upgrade version and changelog
 on:
   push:
     branches:
@@ -38,7 +38,7 @@ jobs:
       - name: Commit & Push changes
         uses: actions-js/push@v1.4
         with:
-          branch: master
+          branch: main
           empty: true
           tags: true
           force: true
