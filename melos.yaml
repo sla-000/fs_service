@@ -85,3 +85,9 @@ scripts:
     run: |
       dart run melos exec --concurrency=1 --\
         dart pub upgrade --major-versions
+
+  publish:
+    description: "Publish to pub.dev"
+    run: |
+      dart run melos exec --concurrency=1 --\
+        flutter pub publish
