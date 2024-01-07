@@ -90,4 +90,4 @@ scripts:
     description: "Publish to pub.dev"
     run: |
       dart run melos exec --concurrency=1 --\
-        flutter pub publish --no-dry-run
+        dart pub publish --force
