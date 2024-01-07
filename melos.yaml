@@ -7,13 +7,13 @@ packages:
 
 scripts:
   analyze:
-    description: "Analyze"
+    description: "Analyze sources"
     run: |
       dart run melos exec --concurrency=1 --\
         flutter analyze
 
   check:
-    description: "Check format, analyze and test"
+    description: "Check format, analyze, test and show coverage percent"
     run: |
       dart run melos exec --concurrency=1 --\
         dart run melos run format:check && \
@@ -22,14 +22,14 @@ scripts:
         dart run melos run coverage:check
 
   coverage:
-    description: "Show coverage in browser"
+    description: "Show coverage in the default browser"
     run: |
       dart run melos run coverage:filter && \
       dart run melos run coverage:html && \
       open coverage/html/index.html
 
   coverage:check:
-    description: "Check coverage"
+    description: "Check coverage is more that some threshold"
     packageFilters:
       dirExists:
         - test
@@ -49,30 +49,30 @@ scripts:
       rm -f coverage/lcov-all.info
 
   coverage:html:
-    description: "Generate html"
+    description: "Generate coverage html"
     run: |
       genhtml coverage/lcov.info -o coverage/html
 
   fix:
-    description: "Dart fix"
+    description: "Apply dart fix"
     run: |
       dart run melos exec --concurrency=1 --\
         dart fix --apply
 
   format:
-    description: "Format"
+    description: "Format all sources"
     run: |
       dart run melos exec --\
         dart format .
 
   format:check:
-    description: "Check format"
+    description: "Check if all sources are formatted"
     run: |
       dart run melos exec --concurrency=1 --\
         dart format --set-exit-if-changed .
 
   test:
-    description: "Test"
+    description: "Run tests with coverage"
     packageFilters:
       dirExists:
         - test
@@ -81,7 +81,7 @@ scripts:
         flutter test --coverage -j 1 .
 
   upgrade:
-    description: "Upgrade"
+    description: "Upgrade packages"
     run: |
       dart run melos exec --concurrency=1 --\
         dart pub upgrade --major-versions
