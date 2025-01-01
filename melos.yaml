@@ -91,3 +91,15 @@ scripts:
     run: |
       dart run melos exec --concurrency=1 --\
         dart pub publish --force
+
+  compile:macos:
+    description: "Publish to pub.dev"
+    run: |
+      dart run melos exec --concurrency=1 --\
+        mkdir -p build/macos ; dart compile exe --target-os macos -o build/macos/fs_service bin/fs_service.dart
+
+  compile:linux:
+    description: "Publish to pub.dev"
+    run: |
+      dart run melos exec --concurrency=1 --\
+        mkdir -p build/macos ; dart compile exe --target-os linux -o build/linux/fs_service bin/fs_service.dart
