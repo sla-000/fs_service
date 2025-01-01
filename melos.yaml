@@ -2,8 +2,8 @@ name: fs_service
 
 packages:
   - '.'
-  - '*'
-  - '**'
+#  - '*'
+#  - '**'
 
 scripts:
   analyze:
