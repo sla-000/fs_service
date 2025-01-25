@@ -13,8 +13,9 @@ export 'package:fs_service/utils/path_utils.dart';
 
 /// Example of initialization for your project:
 /// ```dart
+/// late EasyFirestore firestore;
 /// Future<void> initMyFirestore() async {
-///   EasyFirestore.instance.db.init(
+///   firestore.db.init(
 ///     /// required
 ///     projectId: 'projectId',
 ///     /// optional
@@ -22,11 +23,11 @@ export 'package:fs_service/utils/path_utils.dart';
 ///   );
 ///
 ///   /// optional, prefix of special fields, by default `$`
-///   EasyFirestore.instance.db.documentMapper.init(metaPrefix: '_myPrefix');
+///   firestore.db.documentMapper.init(metaPrefix: '_myPrefix');
 ///
 ///   /// optional, prefix of special data types,
 ///   /// see [ValueMapper] for default values
-///   EasyFirestore.instance.db.documentMapper.valueUtils.init(
+///   firestore.db.documentMapper.valueUtils.init(
 ///     locationPrefix: '_myLocationPrefix',
 ///     bytesPrefix: '_myBytesPrefix',
 ///     datetimePrefix: '_myDatetimePrefix',
@@ -39,7 +40,7 @@ export 'package:fs_service/utils/path_utils.dart';
 /// ```dart
 /// Future<void> addDocumentExample() async {
 //   /// see [test/jsons] directory of the package
-//   await EasyFirestore.instance.db.addDocument(
+//   await firestore.db.addDocument(
 //     collectionPath: '/temp',
 //     json: {
 //       'textField': 'value',
@@ -53,7 +54,12 @@ export 'package:fs_service/utils/path_utils.dart';
 // }
 /// ```
 class EasyFirestore {
-  EasyFirestore._() {
+  late FirestoreRepoImpl db;
+
+  Future<void> init({
+    required String projectId,
+    String databaseId = '(default)',
+  }) async {
     const pathUtils = PathUtils();
 
     db = FirestoreRepoImpl(
@@ -66,10 +72,6 @@ class EasyFirestore {
       pathUtils: pathUtils,
     );
   }
-
-  late final FirestoreRepoImpl db;
-
-  static final EasyFirestore instance = EasyFirestore._();
 
   Future<void> dispose() async => db.dispose();
 }
