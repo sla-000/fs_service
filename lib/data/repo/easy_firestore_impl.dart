@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:fs_service/data/mappers/document_mapper.dart';
 import 'package:fs_service/data/utils/firestore_path_utils.dart';
-import 'package:fs_service/di/di.dart';
 import 'package:fs_service/domain/repo/easy_firestore.dart';
 import 'package:fs_service/utils/firestore_api_provider.dart';
 import 'package:fs_service/utils/path_utils.dart';
@@ -13,17 +12,19 @@ class FirestoreRepoImpl implements FirestoreRepo {
     required this.documentMapper,
     required this.firestoreApiProvider,
     required this.firestorePathUtils,
+    required this.pathUtils,
   });
 
   final DocumentMapper documentMapper;
   final FirestoreApiProvider firestoreApiProvider;
   final FirestorePathUtils firestorePathUtils;
+  final PathUtils pathUtils;
 
   ProjectsDatabasesDocumentsResource get firestore =>
       firestoreApiProvider.api.projects.databases.documents;
 
   @override
-  FutureOr<void> init({
+  Future<void> init({
     required String projectId,
     String databaseId = '(default)',
   }) async {
@@ -36,15 +37,15 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> dispose() async => firestoreApiProvider.dispose();
+  Future<void> dispose() async => firestoreApiProvider.dispose();
 
   @override
-  FutureOr<JsonObject> getCollection({
+  Future<JsonObject> getCollection({
     required String collectionPath,
     String? changeRootName,
   }) async {
-    final collectionParent = di<PathUtils>().parent(collectionPath);
-    final collectionName = di<PathUtils>().name(collectionPath);
+    final collectionParent = pathUtils.parent(collectionPath);
+    final collectionName = pathUtils.name(collectionPath);
 
     final collectionDocuments = await _getCollectionDocuments(
       documentPath:
@@ -105,7 +106,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<JsonObject> getDocument({
+  Future<JsonObject> getDocument({
     required String documentPath,
     String? changeRootName,
   }) async {
@@ -225,7 +226,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> addDocument({
+  Future<void> addDocument({
     required String collectionPath,
     required JsonObject json,
     String? changeRootName,
@@ -243,10 +244,10 @@ class FirestoreRepoImpl implements FirestoreRepo {
     String? documentId,
     Document document,
   ) async {
-    final documentParent = di<PathUtils>().parent(documentPath);
+    final documentParent = pathUtils.parent(documentPath);
     final absoluteParent =
         firestorePathUtils.absolutePathFromRelative(documentParent);
-    final documentName = di<PathUtils>().name(documentPath);
+    final documentName = pathUtils.name(documentPath);
 
     await firestore.createDocument(
       document,
@@ -257,7 +258,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> addCollection({
+  Future<void> addCollection({
     required String documentPath,
     required JsonObject json,
     String? changeRootName,
@@ -271,7 +272,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> deleteDocument({
+  Future<void> deleteDocument({
     String absolutePath = '',
     String documentPath = '',
   }) async {
@@ -290,7 +291,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
         await _getDocumentCollectionNames(absolutePath: docPath);
 
     for (final collectionName in collectionNames) {
-      final collectionPath = di<PathUtils>().join(docPath, collectionName);
+      final collectionPath = pathUtils.join(docPath, collectionName);
 
       await deleteCollection(absolutePath: collectionPath);
     }
@@ -299,7 +300,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> deleteCollection({
+  Future<void> deleteCollection({
     String absolutePath = '',
     String collectionPath = '',
   }) async {
@@ -314,8 +315,8 @@ class FirestoreRepoImpl implements FirestoreRepo {
       colPath = firestorePathUtils.absolutePathFromRelative(collectionPath);
     }
 
-    final collectionParent = di<PathUtils>().parent(colPath);
-    final collectionName = di<PathUtils>().name(colPath);
+    final collectionParent = pathUtils.parent(colPath);
+    final collectionName = pathUtils.name(colPath);
 
     final documents = await _getCollectionDocuments(
       documentPath: collectionParent,

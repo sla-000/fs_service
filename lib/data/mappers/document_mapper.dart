@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:fs_service/data/utils/document_ext.dart';
-import 'package:fs_service/di/di.dart';
 import 'package:fs_service/domain/mappers/value_mapper.dart';
 import 'package:fs_service/domain/repo/easy_firestore.dart';
 import 'package:fs_service/utils/path_utils.dart';
@@ -16,9 +15,11 @@ typedef OnParsedCallback = Future<void> Function(
 class DocumentMapper {
   DocumentMapper({
     required this.valueUtils,
+    required this.pathUtils,
   });
 
   final ValueMapper valueUtils;
+  final PathUtils pathUtils;
 
   static const kDefaultMetaPrefix = r'$';
 
@@ -45,7 +46,7 @@ class DocumentMapper {
       docJson[entry.key] = valueUtils.toJsonObject(entry.value);
     }
 
-    docJson[metaName] = document.id;
+    docJson[metaName] = document.id(pathUtils);
 
     if (document.createTime != null) {
       final createTime =
@@ -96,7 +97,7 @@ class DocumentMapper {
 
     final documentCollections = rawDocumentCollections.cast<JsonObject>();
 
-    final documentPath = di<PathUtils>().join(path, name);
+    final documentPath = pathUtils.join(path, name);
 
     for (final documentCollection in documentCollections) {
       final documentCollectionName =
@@ -134,7 +135,7 @@ class DocumentMapper {
       fields[entry.key] = valueUtils.fromJsonObject(entry.value);
     }
 
-    final id = (name?.isEmpty ?? true) ? null : di<PathUtils>().name(name);
+    final id = (name?.isEmpty ?? true) ? null : pathUtils.name(name);
 
     return (
       id,
@@ -170,7 +171,7 @@ class DocumentMapper {
           'in json=`$json`');
     }
 
-    final collectionPath = di<PathUtils>().join(
+    final collectionPath = pathUtils.join(
       path,
       collectionName,
     );

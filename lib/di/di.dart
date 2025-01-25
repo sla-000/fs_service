@@ -14,6 +14,7 @@ extension GetItExt on GetIt {
     di.registerLazySingleton<DocumentMapper>(
       () => DocumentMapper(
         valueUtils: di<ValueMapper>(),
+        pathUtils: di<PathUtils>(),
       ),
     );
 
@@ -22,6 +23,7 @@ extension GetItExt on GetIt {
         documentMapper: di<DocumentMapper>(),
         firestoreApiProvider: di<FirestoreApiProvider>(),
         firestorePathUtils: di<FirestorePathUtils>(),
+        pathUtils: di<PathUtils>(),
       ),
       dispose: (e) async => e.dispose(),
     );

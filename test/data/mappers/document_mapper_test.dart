@@ -12,8 +12,12 @@ import '../../_utils/document_ext.dart';
 
 void main() {
   final valueUtils = ValueMapper();
+  const pathUtils = PathUtils();
 
-  final documentMapper = DocumentMapper(valueUtils: valueUtils);
+  final documentMapper = DocumentMapper(
+    valueUtils: valueUtils,
+    pathUtils: pathUtils,
+  );
 
   setUpAll(() {
     di.registerLazySingleton<PathUtils>(PathUtils.new);
