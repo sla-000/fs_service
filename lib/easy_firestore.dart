@@ -71,6 +71,11 @@ class EasyFirestore {
       firestorePathUtils: FirestorePathUtils(),
       pathUtils: pathUtils,
     );
+
+    await db.init(
+      projectId: projectId,
+      databaseId: databaseId,
+    );
   }
 
   Future<void> dispose() async => db.dispose();

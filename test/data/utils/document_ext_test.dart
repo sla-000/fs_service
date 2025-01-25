@@ -25,9 +25,12 @@ void main() {
         () {
           when(() => _mockPathUtils.name(any())).thenReturn(_nameFromPathUtils);
 
-          expect(Document().id, equals(null));
+          expect(Document().id(_mockPathUtils), equals(null));
 
-          expect(Document(name: _name).id, equals(_nameFromPathUtils));
+          expect(
+            Document(name: _name).id(_mockPathUtils),
+            equals(_nameFromPathUtils),
+          );
         },
       );
     },

@@ -24,7 +24,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
       firestoreApiProvider.api.projects.databases.documents;
 
   @override
-  FutureOr<void> init({
+  Future<void> init({
     required String projectId,
     String databaseId = '(default)',
   }) async {
@@ -37,10 +37,10 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> dispose() async => firestoreApiProvider.dispose();
+  Future<void> dispose() async => firestoreApiProvider.dispose();
 
   @override
-  FutureOr<JsonObject> getCollection({
+  Future<JsonObject> getCollection({
     required String collectionPath,
     String? changeRootName,
   }) async {
@@ -106,7 +106,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<JsonObject> getDocument({
+  Future<JsonObject> getDocument({
     required String documentPath,
     String? changeRootName,
   }) async {
@@ -226,7 +226,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> addDocument({
+  Future<void> addDocument({
     required String collectionPath,
     required JsonObject json,
     String? changeRootName,
@@ -258,7 +258,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> addCollection({
+  Future<void> addCollection({
     required String documentPath,
     required JsonObject json,
     String? changeRootName,
@@ -272,7 +272,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> deleteDocument({
+  Future<void> deleteDocument({
     String absolutePath = '',
     String documentPath = '',
   }) async {
@@ -300,7 +300,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  FutureOr<void> deleteCollection({
+  Future<void> deleteCollection({
     String absolutePath = '',
     String collectionPath = '',
   }) async {
