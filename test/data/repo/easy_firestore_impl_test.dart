@@ -55,6 +55,7 @@ void main() {
     documentMapper: _mockDocumentMapper,
     firestoreApiProvider: _mockFirestoreApiProvider,
     firestorePathUtils: _mockFirestorePathUtils,
+    pathUtils: _mockPathUtils,
   );
 
   setUpAll(() async {
