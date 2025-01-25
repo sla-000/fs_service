@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-01-25
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`fs_service` - `v1.2.0`](#fs_service---v120)
+
+---
+
+#### `fs_service` - `v1.2.0`
+
+ - **FEAT**: Add package export file.
+
+## 1.2.0
+
+ - **FEAT**: Add package export file.
+
+
 ## 2024-01-03
 
 ### Changes
