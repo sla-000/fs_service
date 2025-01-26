@@ -108,10 +108,7 @@ class FirestoreRepoImpl implements FirestoreRepo {
   }
 
   @override
-  Future<JsonObject> getDocument({
-    required String documentPath,
-    String? changeRootName,
-  }) async {
+  Future<JsonObject> getDocument({required String documentPath}) async {
     final docPath = firestorePathUtils.absolutePathFromRelative(documentPath);
 
     var document = Document(name: docPath);
@@ -256,6 +253,30 @@ class FirestoreRepoImpl implements FirestoreRepo {
       absoluteParent,
       documentName,
       documentId: documentId,
+    );
+  }
+
+  @override
+  FutureOr<void> updateDocument({
+    required String documentPath,
+    required JsonObject json,
+  }) async {
+    final absolutePath =
+        firestorePathUtils.absolutePathFromRelative(documentPath);
+
+    final fields = Map.fromEntries(
+      json.entries.map(
+        (e) => MapEntry(
+          e.key,
+          documentMapper.valueUtils.fromJsonObject(e.value),
+        ),
+      ),
+    );
+
+    await firestore.patch(
+      Document(fields: fields),
+      absolutePath,
+      currentDocument_exists: false,
     );
   }
 
