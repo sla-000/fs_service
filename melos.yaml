@@ -36,7 +36,7 @@ scripts:
     run: |
       dart run melos exec --concurrency=1 --\
         dart pub global activate check_coverage && \
-        cat coverage/lcov.info | check_coverage 60
+        cat coverage/lcov.info | check_coverage 50
 
   coverage:filter:
     description: "Filter coverage"

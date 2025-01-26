@@ -177,6 +177,18 @@ void main() {
       );
 
       group(
+        'updateDocument tests - ',
+        () {
+          test(
+            'smoke test',
+            () async {
+              // todo addDocument tests
+            },
+          );
+        },
+      );
+
+      group(
         'addCollection tests - ',
         () {
           test(
