@@ -276,7 +276,6 @@ class FirestoreRepoImpl implements FirestoreRepo {
     await firestore.patch(
       Document(fields: fields),
       absolutePath,
-      currentDocument_exists: false,
     );
   }
 
