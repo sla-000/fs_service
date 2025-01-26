@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`fs_service` - `v1.3.0`](#fs_service---v130)
+
+---
+
+#### `fs_service` - `v1.3.0`
+
+ - **FEAT**: Add updateDocument().
+
+## 1.3.0
+
+ - **FEAT**: Add updateDocument().
+
+
+## 2025-01-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`fs_service` - `v1.2.1`](#fs_service---v121)
 
 ---
