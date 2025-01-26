@@ -64,7 +64,7 @@ class EasyFirestore {
 
     db = FirestoreRepoImpl(
       documentMapper: DocumentMapper(
-        valueUtils: ValueMapper(),
+        valueUtils: ValueMapper()..init(),
         pathUtils: pathUtils,
       ),
       firestoreApiProvider: FirestoreApiProviderImpl(),

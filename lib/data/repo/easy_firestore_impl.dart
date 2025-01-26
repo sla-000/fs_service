@@ -28,6 +28,8 @@ class FirestoreRepoImpl implements FirestoreRepo {
     required String projectId,
     String databaseId = '(default)',
   }) async {
+    documentMapper.init();
+
     await firestoreApiProvider.init();
 
     firestorePathUtils.init(
