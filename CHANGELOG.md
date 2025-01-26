@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-01-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`fs_service` - `v1.2.1`](#fs_service---v121)
+
+---
+
+#### `fs_service` - `v1.2.1`
+
+ - **FIX**: Fix init (#2).
+
+## 1.2.1
+
+ - **FIX**: Fix init (#2).
+
+
 ## 2025-01-25
 
 ### Changes
