@@ -24,6 +24,11 @@ abstract class FirestoreRepo {
     String? changeRootName,
   });
 
+  FutureOr<void> updateDocument({
+    required String documentPath,
+    required JsonObject json,
+  });
+
   FutureOr<void> addCollection({
     required String documentPath,
     required JsonObject json,
