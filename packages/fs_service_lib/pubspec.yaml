@@ -1,0 +1,22 @@
+name: fs_service_lib
+description: A starting point for Dart libraries or applications.
+version: 2.0.0
+repository: https://github.com/sla-000/fs_service_lib
+
+environment:
+  sdk: ^3.3.0
+
+# Add regular dependencies here.
+dependencies:
+  _discoveryapis_commons: ^1.0.6
+  googleapis: ^12.0.0
+  googleapis_auth: ^1.4.1
+  http: ^1.1.0
+  meta: ^1.10.0
+
+dev_dependencies:
+  check_coverage: ^0.0.5
+  melos: ^3.2.0
+  mocktail: ^1.0.1
+  test: ^1.21.0
+

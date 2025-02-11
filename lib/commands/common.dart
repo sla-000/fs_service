@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:fs_service/di/di.dart';
-import 'package:fs_service/domain/repo/easy_firestore.dart';
 import 'package:fs_service/log/log.dart';
+import 'package:fs_service_lib/domain/repo/easy_firestore.dart';
 
 const kFirestoreCredentialsHelpUrl =
     'https://cloud.google.com/docs/authentication/application-default-credentials#GAC';

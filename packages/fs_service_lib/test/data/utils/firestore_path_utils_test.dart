@@ -1,4 +1,4 @@
-import 'package:fs_service/data/utils/firestore_path_utils.dart';
+import 'package:fs_service_lib/data/utils/firestore_path_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

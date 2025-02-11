@@ -145,6 +145,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  fs_service_lib:
+    dependency: "direct main"
+    description:
+      path: "packages/fs_service_lib"
+      relative: true
+    source: path
+    version: "2.0.0"
   get_it:
     dependency: "direct main"
     description:
@@ -570,4 +577,4 @@ packages:
     source: hosted
     version: "2.1.1"
 sdks:
-  dart: ">=3.2.0 <4.0.0"
+  dart: ">=3.3.0 <4.0.0"

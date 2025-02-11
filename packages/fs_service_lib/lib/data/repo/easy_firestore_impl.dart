@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:fs_service/data/mappers/document_mapper.dart';
-import 'package:fs_service/data/utils/firestore_path_utils.dart';
-import 'package:fs_service/domain/repo/easy_firestore.dart';
-import 'package:fs_service/utils/firestore_api_provider.dart';
-import 'package:fs_service/utils/path_utils.dart';
+import 'package:fs_service_lib/data/mappers/document_mapper.dart';
+import 'package:fs_service_lib/data/utils/firestore_path_utils.dart';
+import 'package:fs_service_lib/domain/repo/easy_firestore.dart';
+import 'package:fs_service_lib/utils/firestore_api_provider.dart';
+import 'package:fs_service_lib/utils/path_utils.dart';
 import 'package:googleapis/firestore/v1.dart';
 
 class FirestoreRepoImpl implements FirestoreRepo {

@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:fs_service/data/utils/document_ext.dart';
-import 'package:fs_service/domain/mappers/value_mapper.dart';
-import 'package:fs_service/domain/repo/easy_firestore.dart';
-import 'package:fs_service/utils/path_utils.dart';
+import 'package:fs_service_lib/data/utils/document_ext.dart';
+import 'package:fs_service_lib/domain/mappers/value_mapper.dart';
+import 'package:fs_service_lib/domain/repo/easy_firestore.dart';
+import 'package:fs_service_lib/utils/path_utils.dart';
 import 'package:googleapis/firestore/v1.dart';
 
 typedef OnParsedCallback = Future<void> Function(

@@ -1,4 +1,4 @@
-import 'package:fs_service/utils/path_utils.dart';
+import 'package:fs_service_lib/utils/path_utils.dart';
 import 'package:googleapis/firestore/v1.dart';
 
 extension DocumentExt on Document {

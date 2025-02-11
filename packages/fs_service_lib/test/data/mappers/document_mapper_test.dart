@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fs_service/data/mappers/document_mapper.dart';
-import 'package:fs_service/di/di.dart';
-import 'package:fs_service/domain/mappers/value_mapper.dart';
-import 'package:fs_service/utils/path_utils.dart';
+import 'package:fs_service_lib/data/mappers/document_mapper.dart';
+import 'package:fs_service_lib/domain/mappers/value_mapper.dart';
+import 'package:fs_service_lib/utils/path_utils.dart';
 import 'package:googleapis/firestore/v1.dart';
 import 'package:test/test.dart';
 
@@ -19,9 +18,9 @@ void main() {
     pathUtils: pathUtils,
   );
 
-  setUpAll(() {
-    di.registerLazySingleton<PathUtils>(PathUtils.new);
-  });
+  // setUpAll(() {
+  //   di.registerLazySingleton<PathUtils>(PathUtils.new);
+  // });
 
   group(
     'DocumentMapper tests 1 - ',
