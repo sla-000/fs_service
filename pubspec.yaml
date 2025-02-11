@@ -9,6 +9,7 @@ environment:
 executables:
   fs_service:
 
+# todo upgrade packages
 dependencies:
   _discoveryapis_commons: ^1.0.6
   args: ^2.4.2
