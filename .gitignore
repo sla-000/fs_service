@@ -14,3 +14,5 @@ test/doc/.*
 # FVM Version Cache
 .fvm/
 /macos
+
+/secret/**
