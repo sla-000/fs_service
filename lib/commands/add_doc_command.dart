@@ -64,7 +64,7 @@ class AddDocCommand extends Command<dynamic> {
     if (jsonObject is! JsonObject) {
       throw UsageException(
         '''
-Input JSON must have an Object format.
+Input JSON must have a Map<String, dynamic> format.
 More about the Object format here: https://datatracker.ietf.org/doc/html/rfc8259#section-4
 ''',
         usage,
