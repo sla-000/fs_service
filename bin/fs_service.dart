@@ -7,7 +7,7 @@ import 'package:fs_service/os/close_app.dart';
 import 'package:fs_service/os/signals.dart';
 
 Future<void> main(List<String> args) async {
-  di.init();
+  await di.init();
 
   setupOsSignals();
 
@@ -24,11 +24,11 @@ Future<void> main(List<String> args) async {
         stack,
       );
 
-      di.dispose().ignore();
+      await di.dispose();
       await closeApp(ExitCode.error);
     },
   );
 
-  di.dispose().ignore();
+  await di.dispose();
   await closeApp(ExitCode.ok);
 }

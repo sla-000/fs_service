@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:args/command_runner.dart';
 import 'package:fs_service/commands/common.dart';
 import 'package:fs_service/commands/common_args.dart';
-import 'package:fs_service/data/mappers/document_mapper.dart';
 import 'package:fs_service/di/di.dart';
-import 'package:fs_service/domain/mappers/value_mapper.dart';
-import 'package:fs_service/domain/repo/easy_firestore.dart';
 import 'package:fs_service/utils/io_functions.dart';
+import 'package:fs_service_lib/data/mappers/document_mapper.dart';
+import 'package:fs_service_lib/domain/mappers/value_mapper.dart';
+import 'package:fs_service_lib/domain/repo/firestore_repo.dart';
 
 class AddColCommand extends Command<dynamic> {
   AddColCommand() {
@@ -64,7 +64,7 @@ class AddColCommand extends Command<dynamic> {
     if (jsonObject is! JsonObject) {
       throw UsageException(
         '''
-Input JSON must have an Object format.
+Input JSON must have a Map<String, dynamic> format.
 More about the Object format here: https://datatracker.ietf.org/doc/html/rfc8259#section-4
 ''',
         usage,

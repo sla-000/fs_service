@@ -142,7 +142,7 @@ Since the output file is not specified in the options, the result will be printe
 }
 ```
 
-More sophisticated examples are in the [doc-2.json](test/jsons/doc-2.json) and [col-2.json](test/jsons/col-2.json) files.
+More sophisticated examples are in the [doc-2.json](test/fixtures/doc-2.json) and [col-2.json](test/fixtures/col-2.json) files.
 
 Time will always be converted to UTC to avoid confusion. 
 The default geolocation is stored in the form of `location://{LATITUDE}/{LONGITUDE}`

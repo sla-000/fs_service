@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:args/command_runner.dart';
 import 'package:fs_service/commands/common.dart';
 import 'package:fs_service/commands/common_args.dart';
@@ -5,13 +7,16 @@ import 'package:fs_service/di/di.dart';
 import 'package:fs_service/utils/io_functions.dart';
 import 'package:fs_service_lib/data/mappers/document_mapper.dart';
 import 'package:fs_service_lib/domain/mappers/value_mapper.dart';
-import 'package:fs_service_lib/utils/json_utils.dart';
+import 'package:fs_service_lib/domain/repo/firestore_repo.dart';
 
-class GetDocCommand extends Command<dynamic> {
-  GetDocCommand() {
+// todo
+class UpdDocCommand extends Command<dynamic> {
+  UpdDocCommand() {
     argAddGeneral(argParser);
 
-    argAddFileOut(argParser, isDocument: true);
+    argAddFileIn(argParser, isDocument: true);
+
+    argAddChangeRootName(argParser, isDocument: true);
 
     argAddSeparatorOtherSettings(argParser);
 
@@ -21,10 +26,10 @@ class GetDocCommand extends Command<dynamic> {
   }
 
   @override
-  final name = 'get-doc';
+  final name = 'upd-doc';
   @override
-  final description = 'Get the document by the path, eg. `col1/doc1`.\n'
-      'Command is recursive and will get all nested documents and collections and save them to the output JSON';
+  final description =
+      'Update the document to a collection by the path, eg. `col1/doc1`';
 
   @override
   Future<void> run() async {
@@ -45,19 +50,31 @@ class GetDocCommand extends Command<dynamic> {
 
     final restArgs = argResults!.rest;
 
-    checkHaveOnlyOneArg(
-      restArgs: restArgs,
-      usage: usage,
-    );
+    if (restArgs.isEmpty) {
+      throw UsageException('Command must have an argument', usage);
+    } else if (restArgs.length > 1) {
+      throw UsageException('Command must have only one argument', usage);
+    }
 
     final relPath = restArgs.single;
 
-    final docJson = await firestore.getDocument(documentPath: relPath);
+    final jsonIn = await readFromIn(fileName: getArgIn(argResults));
 
-    final jsonOut = jsonEncoder.convert(docJson);
-    await writeToOut(
-      jsonOut,
-      fileName: getArgOut(argResults),
+    final jsonObject = jsonDecode(jsonIn);
+    if (jsonObject is! JsonObject) {
+      throw UsageException(
+        '''
+Input JSON must have a Map<String, dynamic> format.
+More about the Object format here: https://datatracker.ietf.org/doc/html/rfc8259#section-4
+''',
+        usage,
+      );
+    }
+
+    await firestore.addDocument(
+      collectionPath: relPath,
+      json: jsonObject,
+      changeRootName: getArgChangeRootName(argResults),
     );
   }
 }
