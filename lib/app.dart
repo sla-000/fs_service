@@ -14,16 +14,17 @@ import 'package:fs_service/log/log.dart';
 import 'package:fs_service/os/close_app.dart';
 
 Future<void> app(List<String> args) async {
-  final runner = CommandRunner(
-    'fs_service',
-    'Tool for importing and exporting Firestore data with service account',
-  )
-    ..addCommand(GetDocCommand())
-    ..addCommand(GetColCommand())
-    ..addCommand(AddDocCommand())
-    ..addCommand(AddColCommand())
-    ..addCommand(DelDocCommand())
-    ..addCommand(DelColCommand());
+  final runner =
+      CommandRunner(
+          'fs_service',
+          'Tool for importing and exporting Firestore data with service account',
+        )
+        ..addCommand(GetDocCommand())
+        ..addCommand(GetColCommand())
+        ..addCommand(AddDocCommand())
+        ..addCommand(AddColCommand())
+        ..addCommand(DelDocCommand())
+        ..addCommand(DelColCommand());
 
   addLogLevelArg(runner.argParser);
 
@@ -48,12 +49,16 @@ Future<void> app(List<String> args) async {
 
     switch (error.status) {
       case 400:
-        stdout.writeln('\nAre you sure you are not trying to apply '
-            'document command to collection or vice-versa?');
+        stdout.writeln(
+          '\nAre you sure you are not trying to apply '
+          'document command to collection or vice-versa?',
+        );
 
       case 409:
-        stdout.writeln('\nLooks like document or collection already exists, '
-            'unable to overwrite');
+        stdout.writeln(
+          '\nLooks like document or collection already exists, '
+          'unable to overwrite',
+        );
     }
 
     await closeApp(ExitCode.args);
