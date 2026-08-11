@@ -4,204 +4,199 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/></a>
 </p>
 
-# The purpose of the fs_service utility
+# fs_service
 
-The utility is designed to work with data in Firestore.
+`fs_service` is a Dart command-line utility for importing, exporting, and managing data in Cloud Firestore using a Google Service Account.
 
-The tool can:
-- Import Firestore documents and collections and print them to a console or write to JSON files.
-- Export documents and collections from a console or JSON files to Firestore.
-- Delete Firestore documents and collections.
-- Perform all these operations recursively, preserving the internal structure of Firestore and all 
-  data types that exist in Firestore.
+## Features
 
+- **Recursive Operations**: Export or import Firestore documents and collections while preserving all nested subcollections and documents.
+- **Type Preservation**: Full support for standard JSON data types as well as native Firestore data types (Timestamps, GeoPoints, Document References, and Bytes/Blobs).
+- **Flexible IO**: Read from and write to standard output / standard input (STDOUT / STDIN) or specify JSON files.
+- **Metadata Customization**: Configurable metadata and value prefixes to prevent field name collisions.
+- **Piping & Copying**: Easily copy documents or collections within or across projects using standard Unix pipelines.
 
-# Add tool to your project
+---
 
-Add this line manually to your dev_dependencies:
+## Installation & Setup
+
+Add `fs_service` to your `pubspec.yaml`:
+
 ```yaml
 dev_dependencies:
-  fs_service: ^1.0.0
+  fs_service:
+    git:
+      url: https://github.com/sla-000/fs_service.git
+      ref: dev
 ```
-or alternatively run this command in the root folder of your app, where the pubspec.yaml file is located:
+
+Or install it directly via Dart pub:
+
 ```bash
 dart pub add dev:fs_service
 ```
 
+---
 
-# Getting access to Firestore project
+## Authentication
 
-⚠️ To access the data, a Firestore service account is used. What is needed for work:
-- Create a service account for your Firestore project.
-- Download JSON with credentials to access the account.
-- Set the GOOGLE_APPLICATION_CREDENTIALS environment variable and specify the path to the credentials file in it.
+`fs_service` uses a Firestore Service Account for authentication:
 
-For example: 
+1. Create a Service Account in your Firebase / Google Cloud console for your project.
+2. Download the JSON credentials file.
+3. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable:
+
 ```bash
-export GOOGLE_APPLICATION_CREDENTIALS=secret/myProject-firebase-adminsdk-asda-23423hgh32.json
+export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account-credentials.json"
 ```
 
-You can read more about this here: https://cloud.google.com/docs/authentication/application-default-credentials#GAC
+For more details, see [Google Cloud Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials#GAC).
 
+---
 
-# General structure of documents and collections in the Firebase
+## Database & Path Structure
 
-ℹ️ It’s important to understand that the structure has the following form:
+Firestore organizes data in alternating collections and documents:
+- A document path starts with a collection: `collection1/document1`
+- A collection path can be a root collection (`collection1`) or a subcollection (`collection1/document1/collection2`)
 
-- Documents are located at the root of the project.
-- A document consists of fields with different types of data.
-- Each document can have a nested collection, and not just one.
-- Several documents can be nested in each collection. 
-
-⚠️ From this, the following important conclusions are drawn:
-
-- If `colX` is the name of a collection and `docX` is the name of a document, 
-    then the relative path from the root of the project will look something like this: `col1/doc1/col2/doc2`, 
-    i.e., the path starts with a collection and alternately contains a document and a collection nested in the document.
-- You can only add a document to a collection, and a collection only to a document.
-- If you delete the collection `col1`, then you delete all documents and collections down this path.
-- If you delete the document `doc1`, then you delete all collections and documents down this path.
-
-The absolute path of the root of the project looks like this:
-
-```
+The absolute path in Firestore is structured as:
+```text
 projects/{projectId}/databases/{databaseId}/documents
 ```
 
-You have to pass the projectId value and optionally the databaseId value as the arguments to the application, see examples below.
+Pass the required `--project` (`-p`) option and optionally `--database` (defaults to `(default)`).
 
-# get-doc Command
+---
 
-Here is an example of a document `lUAEoKptpXKT1CshnZKX` which contains all types of fields provided by Firestore. 
-There is also one nested collection with one document `lUAEoKptpXKT1CshnZKX/col1/lUAEoKptpXKT1CshnZKX` - a copy of the first one.
+## Available Commands
 
+| Command | Description | Path Example |
+| :--- | :--- | :--- |
+| `get-doc` | Get a document and all its nested subcollections recursively to JSON (STDOUT or file). | `col1/doc1` |
+| `get-col` | Get a collection and all its nested documents recursively to JSON (STDOUT or file). | `col1` or `col1/doc1/col2` |
+| `add-doc` | Import/add a document and all nested structures into a collection from JSON (STDIN or file). | `col1` or `col1/doc1/col2` |
+| `add-col` | Import/add a collection and all nested structures into a document from JSON (STDIN or file). | `col1/doc1` |
+| `del-doc` | Recursively delete a document and all its nested collections and documents. | `col1/doc1` |
+| `del-col` | Recursively delete a collection and all its nested documents and collections. | `col1` or `col1/doc1/col2` |
+
+---
+
+## Command Options
+
+### General Settings
+
+- `-p, --project <myProject>` (**Required**): Name of your Firebase project ID.
+- `--database <myDatabase>`: Name of the Firestore database (defaults to `(default)`).
+
+### Input / Output Settings
+
+- `-o, --out-file <path.json>`: Output file path for `get-doc` and `get-col`. If omitted, output is printed to `STDOUT`.
+- `-i, --in-file <path.json>`: Input file path for `add-doc` and `add-col`. If omitted, input is read from `STDIN`.
+
+### Root Name Override Settings
+
+- `-c, --change-name <newName>`: Change the root document or collection name when uploading via `add-doc` or `add-col`.
+
+### Metadata & Value Prefix Settings
+
+- `--meta-prefix <prefix>` (default: `$`): Prefix for metadata fields (e.g. `$name`, `$collections`, `$documents`, `$createTime`, `$updateTime`). Change if your Firestore field names conflict with default metadata keys.
+- `--reference-prefix <prefix>` (default: `reference://`): Prefix for serializing/deserializing Firestore Document References.
+- `--location-prefix <prefix>` (default: `location://`): Prefix for serializing/deserializing Firestore GeoPoints.
+- `--bytes-prefix <prefix>` (default: `bytes://`): Prefix for serializing/deserializing Firestore Bytes/Blobs.
+- `--datetime-prefix <prefix>` (default: `datetime://`): Prefix for serializing/deserializing Firestore Timestamps.
+
+### Logging Settings
+
+- `-v, --verbose <level>`: Set logging verbosity. Messages are printed to `STDERR`.
+  - `info`: Print detailed process info.
+  - `trace`: Trace all activity.
+
+---
+
+## Data Types & JSON Serialization Format
+
+`fs_service` handles standard JSON data types directly (strings, numbers, booleans, null, maps, lists). Special Firestore data types are encoded using prefixed strings:
+
+| Firestore Type | JSON Format Example |
+| :--- | :--- |
+| **Timestamp** | `"datetime://2023-10-21T11:26:40.152Z"` (UTC format) |
+| **GeoPoint** | `"location://34.3456/-23.432"` (`location://latitude/longitude`) |
+| **Document Reference** | `"reference://projects/myProject/databases/(default)/documents/col1/doc1"` |
+| **Bytes (Blob)** | `"bytes://SGVsbG8gV29ybGQ="` (Base64 encoded string) |
+
+### Metadata Fields
+
+Metadata fields assist in preserving and restoring database structure:
+
+- `$name`: Name / ID of the document or collection.
+- `$createTime`: Document creation timestamp (ISO 8601, read-only).
+- `$updateTime`: Document update timestamp (ISO 8601, read-only).
+- `$collections`: Array of nested child collection objects inside a document.
+- `$documents`: Array of nested child document objects inside a collection.
+
+> **Note**: `$createTime` and `$updateTime` fields are ignored when importing data via `add-doc` or `add-col`, as Firestore manages these timestamps automatically.
+
+---
+
+## Usage Examples
+
+### 1. Exporting Data
+
+Export a single document and all its subcollections to a JSON file:
 ```bash
-dart run fs_service get-doc test/lUAEoKptpXKT1CshnZKX --project=myProject
+dart run fs_service get-doc col1/doc1 --project=myProject --out-file=doc1.json
 ```
 
-Since the output file is not specified in the options, the result will be printed to STDOUT as follows:
-
-```json
-
-{
-  "numberF": 1234.5432,
-  "null1": null,
-  "ref": "reference://projects/myProject/databases/(default)/documents/en/YLTunxHK6rgPTWHxjJYe",
-  "timestamp": "datetime://2023-10-21T11:26:40.152Z",
-  "translit": "",
-  "geopoint": "location://34.3456/-23.432",
-  "word": "four",
-  "map": {
-    "key1": {
-      "key2": "value2"
-    }
-  },
-  "transcript": "fɔːr",
-  "boolean": true,
-  "number": 12345,
-  "array": [
-    "array1",
-    "array2"
-  ],
-  "id": "95il61U47MVonL027u3V",
-  "$name": "lUAEoKptpXKT1CshnZKX",
-  "$createTime": "2023-10-26T12:52:01.608133Z",
-  "$updateTime": "2023-10-26T12:52:01.608133Z",
-  "$collections": [
-    {
-      "$name": "col1",
-      "$documents": [
-        {
-          "map": {
-            "key1": {
-              "key2": "value2"
-            }
-          },
-          "number": 12345,
-          "transcript": "fɔːr",
-          "word": "four",
-          "ref": "reference://projects/myProject/databases/(default)/documents/en/YLTunxHK6rgPTWHxjJYe",
-          "numberF": 1234.5432,
-          "id": "95il61U47MVonL027u3V",
-          "translit": "",
-          "geopoint": "location://34.3456/-23.432",
-          "boolean": true,
-          "array": [
-            "array1",
-            "array2"
-          ],
-          "null1": null,
-          "timestamp": "datetime://2023-10-21T11:26:40.152Z",
-          "$name": "lUAEoKptpXKT1CshnZKX",
-          "$createTime": "2024-01-02T11:40:47.284577Z",
-          "$updateTime": "2024-01-02T11:40:47.284577Z"
-        }
-      ]
-    }
-  ]
-}
-```
-
-More sophisticated examples are in the [doc-2.json](test/fixtures/doc-2.json) and [col-2.json](test/fixtures/col-2.json) files.
-
-Time will always be converted to UTC to avoid confusion. 
-The default geolocation is stored in the form of `location://{LATITUDE}/{LONGITUDE}`
-
-By default the fields starting with `$` are the meta-data fields. These fields are used to restore 
-structure of the Firestore database.
-
-In case the field names of your your database are clash with meta-data field names you can change meta-prefix.
-Run the following command to read more about it:
+Export an entire collection to STDOUT:
 ```bash
-dart run fs_service help get-doc
+dart run fs_service get-col col1 --project=myProject
 ```
 
-If you are not happy with `reference://` and other such prefixes you can also change them with the tool options.
+### 2. Importing Data
 
-
-# add-doc Command
-
-If you use the `get-doc` command from the example above and use the `add-doc` command through the `|` operator, 
-then the result of the `get-doc` command will be passed to the `add-doc` command.
-
+Import a document JSON into a collection:
 ```bash
-dart run fs_service get-doc test/lUAEoKptpXKT1CshnZKX --project=myProject | \
-  dart run fs_service add-doc test -c doc4 --project=ella500
+dart run fs_service add-doc col1 --project=myProject --in-file=doc1.json
 ```
 
-In this case, the document `test/lUAEoKptpXKT1CshnZKX` will be copied to the same collection `test` 
-but with the name `doc4` (option `-c`). All nested collections and documents will also be copied.
-
-⚠️ It's important to understand that the values of the '$createTime' and '$updateTime' fields will not be 
-written to the Firestore document, because Firestore ignores these values and overwrites them automatically.
-
-ℹ️ You can delete the meta-data field $name of the document or set it to null. In this case Firestore will 
-assign random unique id to this document.
-
-
-# del-doc Command
-
-It is used to delete a document and all its nested collections and documents.
-
+Import a document with a new ID using the `-c` option:
 ```bash
-dart run fs_service del-doc test/lUAEoKptpXKT1CshnZKX --project=myProject
+dart run fs_service add-doc col1 -c newDocId --project=myProject --in-file=doc1.json
 ```
 
-Be careful, as a result of the operation, data is irretrievably destroyed.
+### 3. Piping Across Projects or Collections
 
+Copy a document directly from one collection to another using Unix pipes:
+```bash
+dart run fs_service get-doc col1/doc1 --project=sourceProject | \
+  dart run fs_service add-doc col2 -c doc1_copy --project=targetProject
+```
 
-# get-col, add-col and del-col Commands
+### 4. Deleting Data
 
-They work similarly to the `get-doc`, `add-doc`, and `del-doc` commands, but are designed to work with collections.
+Recursively delete a document and all nested collections:
+```bash
+dart run fs_service del-doc col1/doc1 --project=myProject
+```
 
-# Detailed information
+Recursively delete a collection:
+```bash
+dart run fs_service del-col col1 --project=myProject
+```
 
-You can read the detailed information about the tool and each of the command with the following commands
+---
+
+## Detailed Help
+
+To display comprehensive CLI help and full list of options, run:
 
 ```bash
 dart run fs_service --help
 ```
 
+To view help for a specific command:
+
 ```bash
-dart run fs_service help add-doc
+dart run fs_service help get-doc
 ```
