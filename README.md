@@ -1,9 +1,7 @@
-<p float="left">
-  <a href="https://github.com/sla-000/fs_service/actions"><img src="https://github.com/sla-000/fs_service/actions/workflows/on-merge.yaml/badge.svg" alt="Last main analysis status"></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"/></a>
-</p>
-
 # fs_service
+
+[![CI](https://github.com/sla-000/fs_service/actions/workflows/ci.yaml/badge.svg)](https://github.com/sla-000/fs_service/actions/workflows/ci.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 `fs_service` is a Dart command-line utility for importing, exporting, and managing data in Cloud Firestore using a Google Service Account.
 
