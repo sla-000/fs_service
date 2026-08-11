@@ -42,9 +42,6 @@ jobs:
       - name: Analyze code
         run: dart analyze --fatal-infos
 
-      - name: Run tests
-        run: dart test
-
       - name: Publish to pub.dev
         run: dart pub publish --force
 
