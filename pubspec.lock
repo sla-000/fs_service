@@ -174,7 +174,7 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: "7c2268bccce5b6259226b9fc5d6d45160d86e4a8"
+      resolved-ref: "8937fbd0972b1729d7d379a29dd25829325ad530"
       url: "https://github.com/sla-000/fs_service_lib"
     source: git
     version: "2.0.0"
