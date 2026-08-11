@@ -15,6 +15,8 @@ class GetColCommand extends Command<dynamic> {
 
     argAddSeparatorOtherSettings(argParser);
 
+    argAddSubcollections(argParser);
+
     argAddMetaPrefix(argParser);
 
     argAddValuePrefixes(argParser);
@@ -24,7 +26,7 @@ class GetColCommand extends Command<dynamic> {
   final name = 'get-col';
   @override
   final description = 'Get the collection by the path, eg. `col1/doc1/col2`.\n'
-      'Command is recursive and will get all nested documents and collections and save them to the output JSON';
+      'Command is recursive by default and will get all nested documents and collections and save them to the output JSON';
 
   @override
   Future<void> run() async {
@@ -52,7 +54,10 @@ class GetColCommand extends Command<dynamic> {
 
     final relPath = restArgs.single;
 
-    final docJson = await firestore.getCollection(collectionPath: relPath);
+    final docJson = await firestore.getCollection(
+      collectionPath: relPath,
+      includeSubcollections: getArgSubcollections(argResults),
+    );
 
     final jsonOut = jsonEncoder.convert(docJson);
     await writeToOut(

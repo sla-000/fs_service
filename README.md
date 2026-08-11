@@ -106,6 +106,10 @@ Pass the required `--project` (`-p`) option and optionally `--database` (default
 - `--bytes-prefix <prefix>` (default: `bytes://`): Prefix for serializing/deserializing Firestore Bytes/Blobs.
 - `--datetime-prefix <prefix>` (default: `datetime://`): Prefix for serializing/deserializing Firestore Timestamps.
 
+### Other Settings
+
+- `--subcollections` (default: `true`): Include nested subcollections and documents recursively for `get-doc` and `get-col`. Pass `--no-subcollections` to disable fetching subcollections.
+
 ### Logging Settings
 
 - `-v, --verbose <level>`: Set logging verbosity. Messages are printed to `STDERR`.

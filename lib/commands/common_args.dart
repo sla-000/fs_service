@@ -14,6 +14,8 @@ const argNameLocationPrefix = 'location-prefix';
 const argNameBytesPrefix = 'bytes-prefix';
 const argNameDateTimePrefix = 'datetime-prefix';
 
+const argNameSubcollections = 'subcollections';
+
 void argAddGeneral(ArgParser argParser) {
   argParser.addSeparator('General settings');
   argParser.addOption(
@@ -161,3 +163,14 @@ String? getArgDateTimePrefix(ArgResults? argResults) =>
 
 String? getArgChangeRootName(ArgResults? argResults) =>
     argResults![argNameChangeRootName] as String?;
+
+void argAddSubcollections(ArgParser argParser) => argParser.addFlag(
+      argNameSubcollections,
+      defaultsTo: true,
+      help: 'Include subcollections and nested documents recursively.\n'
+          'Pass `--no-subcollections` to disable fetching nested subcollections.',
+    );
+
+bool getArgSubcollections(ArgResults? argResults) =>
+    argResults![argNameSubcollections] as bool;
+
