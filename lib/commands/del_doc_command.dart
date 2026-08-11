@@ -12,7 +12,8 @@ class DelDocCommand extends Command<dynamic> {
   @override
   final name = 'del-doc';
   @override
-  final description = "Delete the document by the path, eg. `col1/doc1`.\n"
+  final description =
+      "Delete the document by the path, eg. `col1/doc1`.\n"
       'Command is recursive and will delete all nested documents and collections forever';
 
   @override
@@ -25,10 +26,7 @@ class DelDocCommand extends Command<dynamic> {
 
     final restArgs = argResults!.rest;
 
-    checkHaveOnlyOneArg(
-      restArgs: restArgs,
-      usage: usage,
-    );
+    checkHaveOnlyOneArg(restArgs: restArgs, usage: usage);
 
     final relPath = restArgs.single;
 

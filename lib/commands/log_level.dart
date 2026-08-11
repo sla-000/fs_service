@@ -18,17 +18,15 @@ void addLogLevelArg(ArgParser argParser) {
   argParser.addOption(
     'verbose',
     abbr: 'v',
-    help: 'Logging level. Messages are printed to stderr. '
+    help:
+        'Logging level. Messages are printed to stderr. '
         'Severe failures are always printed',
     defaultsTo: kLogLevelDefault,
     allowedHelp: {
       kLogLevelTrace: 'Trace all activity',
       kLogLevelInfo: 'Detailed errors info',
     },
-    allowed: [
-      kLogLevelTrace,
-      kLogLevelInfo,
-    ],
+    allowed: [kLogLevelTrace, kLogLevelInfo],
     callback: (option) => log.level = argToLogLevelMap[option],
   );
 }

@@ -26,10 +26,7 @@ class DelColCommand extends Command<dynamic> {
 
     final restArgs = argResults!.rest;
 
-    checkHaveOnlyOneArg(
-      restArgs: restArgs,
-      usage: usage,
-    );
+    checkHaveOnlyOneArg(restArgs: restArgs, usage: usage);
 
     final relPath = restArgs.single;
 

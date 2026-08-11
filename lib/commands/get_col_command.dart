@@ -25,7 +25,8 @@ class GetColCommand extends Command<dynamic> {
   @override
   final name = 'get-col';
   @override
-  final description = 'Get the collection by the path, eg. `col1/doc1/col2`.\n'
+  final description =
+      'Get the collection by the path, eg. `col1/doc1/col2`.\n'
       'Command is recursive by default and will get all nested documents and collections and save them to the output JSON';
 
   @override
@@ -47,10 +48,7 @@ class GetColCommand extends Command<dynamic> {
 
     final restArgs = argResults!.rest;
 
-    checkHaveOnlyOneArg(
-      restArgs: restArgs,
-      usage: usage,
-    );
+    checkHaveOnlyOneArg(restArgs: restArgs, usage: usage);
 
     final relPath = restArgs.single;
 
@@ -60,9 +58,6 @@ class GetColCommand extends Command<dynamic> {
     );
 
     final jsonOut = jsonEncoder.convert(docJson);
-    await writeToOut(
-      jsonOut,
-      fileName: getArgOut(argResults),
-    );
+    await writeToOut(jsonOut, fileName: getArgOut(argResults));
   }
 }

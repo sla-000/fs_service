@@ -23,21 +23,15 @@ Future<FirestoreRepo> initFirestore({
     final envVars = Platform.environment;
     final credentialsFile = envVars['GOOGLE_APPLICATION_CREDENTIALS'];
     if (credentialsFile == null || credentialsFile.isEmpty) {
-      throw UsageException(
-        '''
+      throw UsageException('''
 Have you forgotten to set the GOOGLE_APPLICATION_CREDENTIALS environment variable?
 
-More about here: $kFirestoreCredentialsHelpUrl''',
-        '',
-      );
+More about here: $kFirestoreCredentialsHelpUrl''', '');
     } else {
-      throw UsageException(
-        '''
+      throw UsageException('''
 Check your internet connection or credentials file
 
-More about credentials file: $kFirestoreCredentialsHelpUrl''',
-        '',
-      );
+More about credentials file: $kFirestoreCredentialsHelpUrl''', '');
     }
   }
 

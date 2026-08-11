@@ -62,13 +62,10 @@ class AddDocCommand extends Command<dynamic> {
 
     final jsonObject = jsonDecode(jsonIn);
     if (jsonObject is! JsonObject) {
-      throw UsageException(
-        '''
+      throw UsageException('''
 Input JSON must have a Map<String, dynamic> format.
 More about the Object format here: https://datatracker.ietf.org/doc/html/rfc8259#section-4
-''',
-        usage,
-      );
+''', usage);
     }
 
     await firestore.addDocument(

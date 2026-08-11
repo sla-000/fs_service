@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-Future<String> readFromIn({
-  String? fileName,
-}) async {
+Future<String> readFromIn({String? fileName}) async {
   late final String jsonIn;
 
   if (fileName != null) {
@@ -20,10 +18,7 @@ Future<String> readFromIn({
   return jsonIn;
 }
 
-Future<void> writeToOut(
-  String jsonStr, {
-  String? fileName,
-}) async {
+Future<void> writeToOut(String jsonStr, {String? fileName}) async {
   if (fileName != null) {
     final file = await File(fileName).create(recursive: true);
     await file.writeAsString(jsonStr);
