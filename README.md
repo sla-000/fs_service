@@ -21,10 +21,7 @@ Add `fs_service` to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  fs_service:
-    git:
-      url: https://github.com/sla-000/fs_service.git
-      ref: dev
+  fs_service: ^2.0.1
 ```
 
 Or install it directly via Dart pub:
