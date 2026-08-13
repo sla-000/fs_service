@@ -2,7 +2,6 @@ name: fs_service
 description: Firestore service tool. Allow developer to get or add documents and collections to the Firestore using service account.
 repository: https://github.com/sla-000/fs_service
 version: 2.0.0
-publish_to: none # todo Remove
 
 environment:
   sdk: ^3.7.0
@@ -13,17 +12,11 @@ executables:
 dependencies:
   _discoveryapis_commons: ^1.0.6
   args: ^2.4.2
-  fs_service_lib: # todo Point to pub.dev
-    git:
-      url: https://github.com/sla-000/fs_service_lib
-      ref: dev
+  fs_service_lib: ^2.0.4
   get_it: ^9.2.1
   logging: ^1.2.0
   meta: ^1.10.0
 
 dev_dependencies:
-  check_coverage: ^0.0.5
-  melos: ^8.2.2
   mocktail: ^1.0.1
   test: ^1.21.0
-

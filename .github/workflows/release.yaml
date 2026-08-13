@@ -1,66 +1,30 @@
-name: Release Pipeline
+# ==============================================================================
+# Package Release & Pub.dev Deployment Workflow
+# ==============================================================================
+# Step-by-step Release Process:
+# 1. Development: All feature work and bug fixes are performed on the `dev` branch.
+# 2. Release Branch: Create a release branch from `dev` (e.g. `release/vXX.XX`).
+# 3. Version Bump: Increase the package version in `pubspec.yaml` (e.g. `version: X.Y.Z`).
+# 4. Changelog: Update and supplement `CHANGELOG.md` with details of changes.
+# 5. Push Branch: Push the `release/vXX.XX` branch to the GitHub repository.
+# 6. CI Checks: Wait for all CI checks (in ci.yaml) to complete successfully on GitHub.
+# 7. Local Tagging: Once checks pass, create a tag locally matching the version in `pubspec.yaml`:
+#      git tag vXX.XX.XX
+# 8. Push Tag: Push the tag to GitHub:
+#      git push origin vXX.XX.XX
+# 9. Automated Deployment: Pushing the tag `v*` triggers this workflow, which
+#    uses OIDC authentication to publish the package to pub.dev automatically.
+# ==============================================================================
+
+name: Publish to pub.dev
 
 on:
   push:
-    branches:
-      - 'release/v*.*'
-
-permissions:
-  id-token: write
-  contents: write
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
-  release:
-    name: Build, Verify, Tag & Publish
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-
-      - name: Cache pub dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pub-
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Check code formatting
-        run: dart format --output=none --set-exit-if-changed .
-
-      - name: Analyze code
-        run: dart analyze --fatal-infos
-
-      - name: Publish to pub.dev
-        run: dart pub publish --force
-
-      - name: Extract package version
-        id: get_version
-        run: |
-          VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}' | tr -d '\r')
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Create and push git tag
-        run: |
-          RAW_VERSION="${{ steps.get_version.outputs.VERSION }}"
-          VERSION="${RAW_VERSION#v}"
-          TAG="v$VERSION"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git rev-parse "$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists."
-          else
-            git tag -a "$TAG" -m "Release $TAG"
-            git push origin "$TAG"
-          fi
+  publish:
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
