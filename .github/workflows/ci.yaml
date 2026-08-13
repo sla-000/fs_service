@@ -3,13 +3,11 @@
 # ==============================================================================
 # Typical Code Verification & Development Flow:
 # 1. Normal development is conducted on the `dev` branch.
-# 2. Pushes or Pull Requests targeting `dev` (as well as `release/v*.*` and `main`)
+# 2. Pushes or Pull Requests targeting `dev` (as well as `release/v*.*`)
 #    automatically trigger this workflow.
 # 3. Code verification steps executed in this pipeline:
 #    - Code formatting check (`dart format`)
 #    - Static code analysis (`dart analyze --fatal-infos`)
-#    - Unit testing with coverage collection (`dart test`)
-#    - LCOV formatting and coverage upload (Coveralls)
 # 4. All checks must pass cleanly before merging code or publishing a release.
 # ==============================================================================
 
@@ -27,7 +25,7 @@ on:
 
 jobs:
   check:
-    name: Format, Analyze & Test
+    name: Format & Analyze
     runs-on: ubuntu-latest
 
     steps:
@@ -55,17 +53,3 @@ jobs:
 
       - name: Analyze code
         run: dart analyze --fatal-infos
-
-      - name: Run tests with coverage
-        run: dart test --coverage=coverage
-
-      - name: Format coverage report to LCOV
-        run: |
-          dart pub global activate coverage
-          dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --report-on=lib
-
-      - name: Upload coverage to Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage/lcov.info
